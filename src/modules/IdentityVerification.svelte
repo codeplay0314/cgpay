@@ -16,7 +16,7 @@
     let showRoutingHint = false;
     let showAccountHint = false;
 
-    let showModal = true; // This variable controls the visibility of the modal
+    let showModal = false; // This variable controls the visibility of the modal
 
     // This function toggles the visibility state of the modal
     function toggleModal() {
@@ -107,15 +107,17 @@
 </svelte:head>
 
 <section class="page card" id="fund">
-    <StepsLeft remaining={7} />
-    <button data-testid="btn-nav" class="btn top-left" aria-label="Menu" on:click={u.goBack}>
-        <BackIcon width={'100%'} height={'100%'} />
-    </button>
 
-    <header>
+    <div class="progress-container">
+        <div class="progress-bar" style="width: 33%"></div>
+    </div>
 
-        <img src= { cgLogo } alt='Common Good Logo' />
-        <h1>CGPay{ u.realData() ? '' : ' DEMO' }</h1>
+    <header style=" align-items: left" >
+        <button data-testid="btn-nav" class="back-button" aria-label="Go back" on:click={u.goBack} >
+            <BackIcon width={'100%'} height={'100%'} color={'gray'}/>
+        </button>
+        <img src="{cgLogo}" alt="Common Good Logo" style="margin-top: -50px">
+        <h1 style="margin-top: -50px">CGPay{u.realData() ? '' : ' DEMO'}</h1>
     </header>
 
     <div class='content'>
@@ -137,7 +139,7 @@
 
         <form on:submit|preventDefault={handleFormSubmit}>
             <div class="input-container">
-                <input data-testid="input-identifier" name="routing-id" type="text" autocomplete="off" autocapitalize="off" bind:value={credentials.legalName} required on:focus={handleRoutingFocus} on:blur={handleBlur} />
+                <input data-testid="input-identifier" name="routing-id" type="text" autocapitalize="off" bind:value={credentials.legalName} required on:focus={handleRoutingFocus} on:blur={handleBlur} />
                 <span class="floating-label">Your Legal Name</span>
                 {#if showRoutingHint}
                     <div class="floating-box">
@@ -147,8 +149,8 @@
             </div>
 
             <div class="input-container">
-                <input data-testid="input-identifier" name="account-id" type="text" autocomplete="off" pattern="\d*" on:invalid={setCustomMessage} bind:value={credentials.ssn} required on:focus={handleAccountFocus} on:blur={handleBlur} />
-                <span class="floating-label">Your SSN</span>
+                <input data-testid="input-identifier" name="account-id" type="text" pattern="\d*" on:invalid={setCustomMessage} bind:value={credentials.ssn} required on:focus={handleAccountFocus} on:blur={handleBlur} />
+                <span class="floating-label">Your SSN (Social Security Number)</span>
             </div>
             <div class="input-container">
                 <input type="date" bind:value={credentials.birthday} on:change={handleDateChange} required>
@@ -337,6 +339,36 @@
       left: 12px;
       bottom: 0px;
       font-size: 10px;
+  }
+
+  .back-button {
+      position: absolute;
+      cursor: pointer; /* Makes it clear the icon is clickable */
+      padding: 5px 10px; /* Padding around the text or icon for better touch */
+      width: 10%;
+      top: 55px;
+      left: 15px;
+      border: none; /* No border for a cleaner look */
+      background-color: transparent; /* Transparent background */
+      font-size: 10px; /* Larger font size for visibility */
+      transform: scale(0.8);
+      color: green;
+  }
+
+  /* Container for the progress bar, stretching across the top */
+  .progress-container {
+      position: absolute;
+      width: 100%;
+      height: 4px; /* Adjust thickness of the progress bar */
+      background-color: #ddd; /* Background color of the progress bar */
+      top: 0;
+      left: 0;
+      z-index: 1000; /* Ensures it stays on top of other content */
+  }
+
+  .progress-bar {
+      height: 100%;
+      background-color: mediumblue; /* Color of the progress */
   }
 
 </style>

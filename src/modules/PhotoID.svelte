@@ -78,13 +78,17 @@
 </svelte:head>
 
 <section class="page card" id="photo-upload-module">
-    <StepsLeft remaining={6} />
-    <button data-testid="btn-nav" class="btn top-left" aria-label="Menu" on:click={u.goBack}>
-        <BackIcon width={'100%'} height={'100%'} />
-    </button>
-    <header>
-        <img src= { cgLogo } alt='Common Good Logo' />
-        <h1>CGPay{ u.realData() ? '' : ' DEMO' }</h1>
+
+    <div class="progress-container">
+        <div class="progress-bar" style="width: 38%"></div>
+    </div>
+
+    <header style=" align-items: left" >
+        <button data-testid="btn-nav" class="back-button" aria-label="Go back" on:click={u.goBack} >
+            <BackIcon width={'100%'} height={'100%'} color={'gray'}/>
+        </button>
+        <img src="{cgLogo}" alt="Common Good Logo" style="margin-top: -50px">
+        <h1 style="margin-top: -50px">CGPay{u.realData() ? '' : ' DEMO'}</h1>
     </header>
 
     <SlidingModal bind:showModal>
@@ -298,4 +302,33 @@
     align-items: center; /* This ensures the icon and text are aligned at their centers */
     gap: 0.5rem; /* Optional: adds some space between the icon and the text */
   }
+
+      .back-button {
+          position: absolute;
+          cursor: pointer; /* Makes it clear the icon is clickable */
+          padding: 5px 10px; /* Padding around the text or icon for better touch */
+          width: 10%;
+          top: 55px;
+          left: 15px;
+          border: none; /* No border for a cleaner look */
+          background-color: transparent; /* Transparent background */
+          font-size: 10px; /* Larger font size for visibility */
+          transform: scale(0.8);
+          color: green;
+      }
+      .progress-container {
+          position: absolute;
+          width: 100%;
+          height: 4px; /* Adjust thickness of the progress bar */
+          background-color: #ddd; /* Background color of the progress bar */
+          top: 0;
+          left: 0;
+          z-index: 1000; /* Ensures it stays on top of other content */
+      }
+
+      .progress-bar {
+          height: 100%;
+          background-color: mediumblue; /* Color of the progress */
+      }
+
 </style>

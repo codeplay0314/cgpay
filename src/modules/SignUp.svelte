@@ -48,26 +48,21 @@
 
 <section class="page card" id="sign-up">
 
-  <StepsLeft remaining={9} />
-  <button data-testid="btn-nav" class="btn top-left" aria-label="Menu" on:click={u.goBack}>
-    <BackIcon width={'100%'} height={'100%'} />
-  </button>
+  <div class="progress-container">
+    <div class="progress-bar" style="width: 11%"></div>
+  </div>
 
-
-  <header>
-    <img src= { cgLogo } alt='Common Good Logo' />
-    <h1>CGPay{ u.realData() ? '' : ' DEMO' }</h1>
+  <header style=" align-items: left" >
+    <button data-testid="btn-nav" class="back-button" aria-label="Go back" on:click={u.goBack} >
+      <BackIcon width={'100%'} height={'100%'} color={'gray'}/>
+    </button>
+    <img src="{cgLogo}" alt="Common Good Logo" style="margin-top: -50px">
+    <h1 style="margin-top: -50px">CGPay{u.realData() ? '' : ' DEMO'}</h1>
   </header>
 
   <div class='content'>
-    <h2>Sign Up </h2>
 
-  <div class="left-align">
-      If you already have a Common Good account,<a class="signup inline-link" data-testid="lnk-signup" href="/sign-in" target="_blank">Sign In.</a>
-  </div>
-  <div class="left-align">
-      Did you want to open a COMPANY account instead?
-  </div>
+    <h2>Sign Up </h2>
 
   <div class="account-type-selector">
     <label>
@@ -95,7 +90,7 @@
 
       <div class="input-container">
         <input data-testid="input-phone" name="phone" type="text" autocomplete="off" autocapitalize="off" bind:value={personalCredentials.phone} required />
-        <span class="floating-label">Your phone number</span>
+        <span class="floating-label">Phone number</span>
       </div>
 
       <div class="input-container">
@@ -165,7 +160,12 @@
 
     </form>
   {/if}
+
+  <div class="left-align">
+    If you already have a Common Good account,<a class="signup inline-link" data-testid="lnk-signup" href="/sign-in" target="_blank">Sign In.</a>
   </div>
+  </div>
+
 </section>
 
 <style lang='stylus'>
@@ -214,13 +214,6 @@
     padding: $s1;
     position: relative; /* Make this a positioning context for the button */
     justify-content: space-between; /* Positions children at start and end of container */
-  }
-
-  .btn.top-left {
-    position: absolute;
-    top: 2px;
-    left: 0.5px;
-    transform: scale(0.58);
   }
 
   .content
@@ -354,5 +347,37 @@
     color: gray;
     transition: 0.2s ease all;
   }
+
+  .back-button {
+    position: absolute;
+    cursor: pointer; /* Makes it clear the icon is clickable */
+    padding: 5px 10px; /* Padding around the text or icon for better touch */
+    width: 10%;
+    top: 55px;
+    left: 15px;
+    border: none; /* No border for a cleaner look */
+    background-color: transparent; /* Transparent background */
+    font-size: 10px; /* Larger font size for visibility */
+    transform: scale(0.8);
+    color: green;
+  }
+
+  /* Container for the progress bar, stretching across the top */
+  .progress-container {
+    position: absolute;
+    width: 100%;
+    height: 4px; /* Adjust thickness of the progress bar */
+    background-color: #ddd; /* Background color of the progress bar */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensures it stays on top of other content */
+  }
+
+  /* The actual progress bar */
+  .progress-bar {
+    height: 100%;
+    background-color: mediumblue; /* Color of the progress */
+  }
+
 
 </style>

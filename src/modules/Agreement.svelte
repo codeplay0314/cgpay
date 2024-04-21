@@ -8,11 +8,11 @@
     import BackIcon from "svelte-material-icons/ChevronLeft.svelte"
     import HelpBoxIcon from "svelte-material-icons/HelpBox.svelte"
 
-    let showModal = true; // This variable controls the visibility of the modal
+    let showModal = false; // This variable controls the visibility of the modal
 
     const contentMap = {
         default: ` <p>By opening an account, you are joining a partnership to create a Common Good Economy based on the Common Good Agreement.
-                <strong><span style="color: red;">Please actually read it, so you know what you're agreeing to. It's short.</span></strong></p>`,
+               </p>`,
         member: `<p>A <b>Member</b> is any individual person who has signed this Agreement and has an active Common Good account.</p>`,
         memberOrganization: `<p>A <b>Member Organization</b> is any group, organization, or business that has signed this Agreement and has an active Common Good account.</p>`,
         cgc: `<p>A <b>Common Good Community</b> is a group of Members and Member Organizations in a particular geographic region, defined (by the Members there) by a set of zip codes. The purpose of the Common Good system is to create and fund community-centered participatory democracy. In a Common Good Community you decide together how much Common Good credit to issue (within safe limits) and what to fund with it.</p>
@@ -42,14 +42,17 @@
 </svelte:head>
 
 <section class="page card" id="country-select">
-    <StepsLeft remaining={8} />
-    <button data-testid="btn-nav" class="btn top-left" aria-label="Menu" on:click={u.goBack}>
-        <BackIcon width={'100%'} height={'100%'} />
-    </button>
 
-    <header>
-        <img src= { cgLogo } alt='Common Good Logo' />
-        <h1>CGPay{ u.realData() ? '' : ' DEMO' }</h1>
+    <div class="progress-container">
+        <div class="progress-bar" style="width: 27%"></div>
+    </div>
+
+    <header style=" align-items: left" >
+        <button data-testid="btn-nav" class="back-button" aria-label="Go back" on:click={u.goBack} >
+            <BackIcon width={'100%'} height={'100%'} color={'gray'}/>
+        </button>
+        <img src="{cgLogo}" alt="Common Good Logo" style="margin-top: -50px">
+        <h1 style="margin-top: -50px">CGPay{u.realData() ? '' : ' DEMO'}</h1>
     </header>
 
     <div class='content'>
@@ -60,7 +63,10 @@
                   <HelpBoxIcon />
                 </span>
             </div>
+
         </h2>
+        <strong><span style="color: red; font-size: 10px">Please actually read it, so you know what you're agreeing to. It's short.</span></strong>
+
 
         <div id="accordionContainer">
             <Accordion open="true">
@@ -180,23 +186,16 @@
     margin 0 $s2 0 0
 
   .card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: $c-blue-light;
-    box-shadow: 2px 2px 4px $c-gray-dark;
-    border-radius: 2%;
-    padding: $s1;
-    position: relative; /* Make this a positioning context for the button */
-    justify-content: space-between; /* Positions children at start and end of container */
-  }
-
-  .btn.top-left {
-    position: absolute;
-    top: 2px;
-    left: 0.5px;
-    transform: scale(0.58);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: $c-blue-light;
+      box-shadow: 2px 2px 4px $c-gray-dark;
+      border-radius: 2%;
+      padding: $s1;
+      position: relative; /* Make this a positioning context for the button */
+      justify-content: space-between; /* Positions children at start and end of container */
   }
 
   .content
@@ -298,7 +297,7 @@
   #accordionContainer {
     width: 100%; /* Full width on smaller screens */
     min-width: 300px; /* Prevents the container from becoming too narrow */
-    margin: auto; /* Centers the container if its width is less than the parent's width */
+    margin: 5px; /* Centers the container if its width is less than the parent's width */
     padding: 20px;
   }
 
@@ -311,7 +310,7 @@
 
   @media (min-width: 1024px) {
     #accordionContainer {
-      width: 60%; /* Ideal width for large screens */
+      width: 80%; /* Ideal width for large screens */
     }
   }
 
@@ -320,6 +319,34 @@
     padding: 15px;
   }
 
+  .back-button {
+      position: absolute;
+      cursor: pointer; /* Makes it clear the icon is clickable */
+      padding: 5px 10px; /* Padding around the text or icon for better touch */
+      width: 10%;
+      top: 55px;
+      left: 15px;
+      border: none; /* No border for a cleaner look */
+      background-color: transparent; /* Transparent background */
+      font-size: 10px; /* Larger font size for visibility */
+      transform: scale(0.8);
+      color: green;
+  }
+
+  .progress-container {
+      position: absolute;
+      width: 100%;
+      height: 4px; /* Adjust thickness of the progress bar */
+      background-color: #ddd; /* Background color of the progress bar */
+      top: 0;
+      left: 0;
+      z-index: 1000; /* Ensures it stays on top of other content */
+  }
+
+  .progress-bar {
+      height: 100%;
+      background-color: mediumblue; /* Color of the progress */
+  }
 
 
 </style>
